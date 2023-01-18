@@ -4,6 +4,7 @@ import (
 	"github.com/docker/go-connections/nat"
 	"github.com/google/uuid"
 	"kurbis/job"
+	"time"
 )
 
 type Task struct {
@@ -16,4 +17,6 @@ type Task struct {
 	ExposedPorts  nat.PortSet
 	PortBindings  map[string]string
 	RestartPolicy string
+	StartTime     time.Time
+	FinishTime    time.Time
 }
