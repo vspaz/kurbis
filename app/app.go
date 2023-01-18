@@ -5,6 +5,7 @@ import (
 	"github.com/vspaz/simplelogger/pkg/logging"
 	"kurbis/job"
 	"kurbis/task"
+	"time"
 )
 
 func Run() {
@@ -18,4 +19,12 @@ func Run() {
 		Disk:   1,
 	}
 	logger.Info(task_1)
+
+	taskEvent := task.Event{
+		Id:        uuid.New(),
+		State:     job.Pending,
+		Timestamp: time.Now(),
+		Task:      task_1,
+	}
+	logger.Info(taskEvent)
 }
