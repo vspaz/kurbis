@@ -17,3 +17,15 @@ type Worker struct {
 func (w *Worker) GetStats() {
 	w.logger.Info("collecting stats")
 }
+
+func (w *Worker) RunTask() {
+	w.logger.Info("starting or stopping a task")
+}
+
+func (w *Worker) StartTask() {
+	w.logger.Info("starting a task")
+}
+
+func (w *Worker) StopTask() {
+	w.logger.Info("stopping a task")
+}
