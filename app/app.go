@@ -1,10 +1,12 @@
 package app
 
 import (
+	"github.com/golang-collections/collections/queue"
 	"github.com/google/uuid"
 	"github.com/vspaz/simplelogger/pkg/logging"
 	"kurbis/job"
 	"kurbis/task"
+	"kurbis/worker"
 	"time"
 )
 
@@ -28,4 +30,9 @@ func Run() {
 	}
 	logger.Info(taskEvent)
 
+	worker_1 := worker.Worker{
+		Queue:      *queue.New(),
+		UuidToTask: make(map[uuid.UUID]task.Task),
+	}
+	logger.Info(worker_1)
 }
