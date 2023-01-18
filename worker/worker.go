@@ -9,23 +9,23 @@ import (
 
 type Worker struct {
 	Queue      queue.Queue
-	uuidToTask map[uuid.UUID]task.Task
-	taskCount  int
-	logger     *logrus.Logger
+	UuidToTask map[uuid.UUID]task.Task
+	TaskCount  int
+	Logger     *logrus.Logger
 }
 
 func (w *Worker) GetStats() {
-	w.logger.Info("collecting stats")
+	w.Logger.Info("collecting stats")
 }
 
 func (w *Worker) RunTask() {
-	w.logger.Info("starting or stopping a task")
+	w.Logger.Info("starting or stopping a task")
 }
 
 func (w *Worker) StartTask() {
-	w.logger.Info("starting a task")
+	w.Logger.Info("starting a task")
 }
 
 func (w *Worker) StopTask() {
-	w.logger.Info("stopping a task")
+	w.Logger.Info("stopping a task")
 }
