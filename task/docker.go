@@ -56,5 +56,26 @@ func (d *Docker) Run() Result {
 		PublishAllPorts: true,
 	}
 
+	resp, err := d.Client.ContainerCreate(
+		ctx,
+		&containerConfig,
+		&hostConfig,
+		nil,
+		nil,
+		d.Config.Name,
+	)
+	if err != nil {
+		d.Logger.Infof("Error creating container from image %s: %v", d.Config.Image, err)
+		return Result{Error: err}
+	}
+
+	err := d.Client.ContainerStart(
+		ctx, resp.ID, types.ContainerStartOptions{},
+	)
+	if err != nil {
+		d.Logger.Errorf("Error starting container %s: %v\n", resp.ID, err)
+		return Result{Error: err}
+	}
+
 	return Result{Error: nil}
 }
