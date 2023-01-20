@@ -101,3 +101,12 @@ func (d *Docker) Stop() Result {
 	}
 	return Result{Action: "stop", Result: "success", Error: nil}
 }
+
+func stopContainer(d *Docker) Result {
+	result := d.Stop()
+	if result.Error != nil {
+		d.Logger.Errorf("error: %v", result.Error)
+	}
+	d.Logger.Infof("Container %s stopped", result.ContainerId)
+	return result
+}
