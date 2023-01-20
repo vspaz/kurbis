@@ -3,6 +3,7 @@ package task
 import (
 	"context"
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
 	"github.com/sirupsen/logrus"
 	"io"
@@ -35,5 +36,25 @@ func (d *Docker) Run() Result {
 		return Result{Error: err}
 	}
 	io.Copy(os.Stdout, reader)
+
+	restartPolicy := container.RestartPolicy{
+		Name: d.Config.RestartPolicy,
+	}
+
+	resources := container.Resources{
+		Memory: d.Config.Memory,
+	}
+
+	containerConfig := container.Config{
+		Image: d.Config.Image,
+		Env:   d.Config.Env,
+	}
+
+	hostConfig := container.HostConfig{
+		RestartPolicy:   restartPolicy,
+		Resources:       resources,
+		PublishAllPorts: true,
+	}
+
 	return Result{Error: nil}
 }
