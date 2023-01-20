@@ -20,3 +20,10 @@ type Docker struct {
 	Config      Config
 	ContainerId string
 }
+
+type DockerResult struct {
+	Error       error
+	Action      string
+	ContainerId string
+	Result      string
+}
