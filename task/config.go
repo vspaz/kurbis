@@ -1,5 +1,7 @@
 package task
 
+import "github.com/docker/docker/client"
+
 type Config struct {
 	Name          string
 	AttachStdin   bool
@@ -11,4 +13,10 @@ type Config struct {
 	Disk          []string
 	Env           []string
 	RestartPolicy string
+}
+
+type Docker struct {
+	Client      *client.Client
+	Config      Config
+	ContainerId string
 }
