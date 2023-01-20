@@ -1,5 +1,9 @@
 package task
 
+type Runtime struct {
+	ContainerId string
+}
+
 type Config struct {
 	Name          string
 	AttachStdin   bool
@@ -11,4 +15,5 @@ type Config struct {
 	Disk          []string
 	Env           []string
 	RestartPolicy string
+	Runtime       Runtime
 }

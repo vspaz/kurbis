@@ -5,6 +5,7 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/client"
+	"github.com/docker/docker/pkg/stdcopy"
 	"github.com/sirupsen/logrus"
 	"io"
 	"os"
@@ -69,7 +70,7 @@ func (d *Docker) Run() Result {
 		return Result{Error: err}
 	}
 
-	err := d.Client.ContainerStart(
+	err = d.Client.ContainerStart(
 		ctx, resp.ID, types.ContainerStartOptions{},
 	)
 	if err != nil {
@@ -77,5 +78,11 @@ func (d *Docker) Run() Result {
 		return Result{Error: err}
 	}
 
-	return Result{Error: nil}
+	d.Config.Runtime.ContainerId = resp.ID
+	out, err := d.Client.ContainerLogs(
+		ctx, resp.ID, types.ContainerLogsOptions{ShowStdout: true, ShowStderr: true})
+
+	stdcopy.StdCopy(os.Stdout, os.Stderr, out)
+
+	return Result{ContainerId: resp.ID, Action: "start", Result: "success"}
 }
