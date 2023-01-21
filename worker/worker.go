@@ -5,8 +5,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 	"kurbis/task"
+	"sync"
 	"time"
 )
+
+var mtx sync.Mutex
 
 type Worker struct {
 	Queue      queue.Queue
@@ -36,7 +39,9 @@ func (w *Worker) StopTask(t task.Task) task.Result {
 	}
 	t.FinishTime = time.Now().UTC()
 	t.State = t.Completed
+	mtx.Lock()
 	w.UuidToTask[t.Id] = t
+	mtx.Unlock()
 	w.Logger.Infof("stopped & removed container %v for task %v", t.ContainerId, t.ContainerId)
 	return result
 }
