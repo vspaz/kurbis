@@ -62,3 +62,7 @@ func (w *Worker) StopTask(t task.Task) task.Result {
 	w.Logger.Infof("stopped & removed container %v for task %v", t.ContainerId, t.ContainerId)
 	return result
 }
+
+func (w *Worker) AddTask(t task.Task) {
+	w.Queue.Enqueue(t)
+}
