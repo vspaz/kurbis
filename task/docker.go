@@ -110,3 +110,7 @@ func stopContainer(d *Docker) Result {
 	d.Logger.Infof("Container %s stopped", result.ContainerId)
 	return result
 }
+
+func NewDocker(config *Config) Docker {
+	return Docker{}
+}

@@ -27,5 +27,5 @@ func (w *Worker) StartTask() {
 }
 
 func (w *Worker) StopTask(t task.Task) task.Result {
-
+	config := task.NewConfig(&t)
 }
