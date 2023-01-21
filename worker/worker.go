@@ -5,6 +5,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/sirupsen/logrus"
 	"kurbis/task"
+	"time"
 )
 
 type Worker struct {
@@ -28,4 +29,14 @@ func (w *Worker) StartTask() {
 
 func (w *Worker) StopTask(t task.Task) task.Result {
 	config := task.NewConfig(&t)
+	docker := task.NewDocker(&config)
+	result := docker.Stop()
+	if result.Error != nil {
+		w.Logger.Errorf("failed to stop %v: %v", docker.Config.Runtime.ContainerId, result.Error)
+	}
+	t.FinishTime = time.Now().UTC()
+	t.State = t.Completed
+	w.UuidToTask[t.Id] = t
+	w.Logger.Infof("stopped & removed container %v for task %v", t.ContainerId, t.ContainerId)
+	return result
 }
