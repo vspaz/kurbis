@@ -17,3 +17,16 @@ var currentStateToAllowedStates = map[State][]State{
 	Completed: []State{},
 	Failed:    []State{},
 }
+
+func hasState(states []State, state State) bool {
+	for _, aState := range states {
+		if aState == state {
+			return true
+		}
+	}
+	return false
+}
+
+func isStateAllowed(currentState State, targetState State) bool {
+	return hasState(currentStateToAllowedStates[currentState], targetState)
+}
