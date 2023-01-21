@@ -26,6 +26,6 @@ func (w *Worker) StartTask() {
 	w.Logger.Info("starting a task")
 }
 
-func (w *Worker) StopTask() {
-	w.Logger.Info("stopping a task")
+func (w *Worker) StopTask(t task.Task) task.Result {
+
 }
