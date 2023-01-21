@@ -9,7 +9,7 @@ import (
 
 type Task struct {
 	Id            uuid.UUID
-	ContainerId   uuid.UUID
+	ContainerId   string
 	Name          string
 	State         job.State
 	Image         string
@@ -20,5 +20,4 @@ type Task struct {
 	RestartPolicy string
 	StartTime     time.Time
 	FinishTime    time.Time
-	Completed     job.State
 }
