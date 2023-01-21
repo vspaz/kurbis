@@ -17,3 +17,7 @@ type Config struct {
 	RestartPolicy string
 	Runtime       Runtime
 }
+
+func NewConfig(task *Task) Config {
+	return Config{}
+}
