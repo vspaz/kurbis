@@ -23,8 +23,14 @@ func (w *Worker) GetStats() {
 	w.Logger.Info("collecting stats")
 }
 
-func (w *Worker) RunTask() {
-	w.Logger.Info("starting or stopping a task")
+func (w *Worker) RunTask() task.Result {
+	t := w.Queue.Dequeue()
+	if t == nil {
+		w.Logger.Info("no tat in queue")
+		return task.Result{Error: nil}
+	}
+
+	taskQueued := t.(task.Task)
 }
 
 func (w *Worker) StartTask(t task.Task) task.Result {
