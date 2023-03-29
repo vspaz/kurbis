@@ -30,7 +30,8 @@ func (w *Worker) RunTask() task.Result {
 		return task.Result{Error: nil}
 	}
 
-	taskQueued := t.(task.Task)
+	_ = t.(task.Task)
+	return task.Result{}
 }
 
 func (w *Worker) StartTask(t task.Task) task.Result {

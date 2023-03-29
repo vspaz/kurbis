@@ -2,7 +2,7 @@ BINARY_NAME=kurbis
 
 all: build
 build:
-	go build -o $(BINARY_NAME) kurbis.go
+	go build -o $(BINARY_NAME) main.go
 
 .PHONY: test
 test:
