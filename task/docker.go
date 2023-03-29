@@ -87,7 +87,7 @@ func (d *Docker) Run() Result {
 func (d *Docker) Stop() Result {
 	ctx := context.Background()
 	d.Logger.Infof("stopping container %v", d.Config.Runtime.ContainerId)
-	if err := d.Client.ContainerStop(ctx, d.Config.Runtime.ContainerId, nil); err != nil {
+	if err := d.Client.ContainerStop(ctx, d.Config.Runtime.ContainerId, container.StopOptions{}); err != nil {
 		d.Logger.Panicf("failed to stop container %s", err)
 	}
 	removeOptions := types.ContainerRemoveOptions{
